@@ -28,6 +28,14 @@ This script is a utility for converting `.wav` files to `.mp3` format to ensure 
 
 ---
 
+### 3. `Group10_poster.pdf`
+This file contains the project poster, summarizing key findings, methodologies, and results. 
+
+- The poster includes embedded **audio** and **video** elements to enhance understanding of the experiments and outcomes.  
+- **Note**: For the best experience, please open the file using **Adobe Acrobat**, as it supports the playback of embedded audio and video.
+
+---
+
 ## Usage Instructions
 
 1. Clone or download the repository.
