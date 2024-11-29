@@ -1,0 +1,636 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>main</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-11-29">
+<meta name="DC.source" content="main.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Lab Exerices</a>
+</li>
+<li>
+<a href="#2">1) Lab Exerices 4</a>
+</li>
+<li>
+<a href="#3">a)</a>
+</li>
+<li>
+<a href="#4">b)</a>
+</li>
+<li>
+<a href="#5">c)</a>
+</li>
+<li>
+<a href="#6">d)</a>
+</li>
+<li>
+<a href="#7">e)</a>
+</li>
+<li>
+<a href="#8">f)</a>
+</li>
+<li>
+<a href="#9">2) Lab Exerices 5</a>
+</li>
+<li>
+<a href="#10">a)</a>
+</li>
+<li>
+<a href="#11">b)</a>
+</li>
+<li>
+<a href="#12">c)</a>
+</li>
+<li>
+<a href="#13">d)</a>
+</li>
+<li>
+<a href="#14">Lab Exerices 6</a>
+</li>
+<li>
+<a href="#15">a)</a>
+</li>
+<li>
+<a href="#16">b)</a>
+</li>
+<li>
+<a href="#17">c)</a>
+</li>
+<li>
+<a href="#18">4) Lab Exerices 7</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Lab Exerices</h2>
+<pre class="codeinput">
+<span class="comment">% For the vedio, we find it is difficult include in matlab HTML, so we</span>
+<span class="comment">% choose three key frames.</span>
+
+<span class="comment">% We include all PeZ, and code implement in this.</span>
+</pre>
+<h2 id="2">1) Lab Exerices 4</h2>
+<h2 id="3">a)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img4a = imread(<span class="string">'4a.png'</span>);
+figure;
+imshow(img4a)
+</pre>
+<img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="4">b)</h2>
+<p>We find that the <tt>H(z)</tt> is more and more flat.</p>
+<pre class="codeinput">video_4b = VideoReader(<span class="string">'4b.mp4'</span>);
+
+numFrames = video_4b.NumFrames;
+
+img4b_first_frame = read(video_4b, 1);
+img4b_mid_frame = read(video_4b, round(numFrames / 2));
+img4b_last_frame = read(video_4b, 1100);
+close <span class="string">all</span>
+figure;
+imshow(img4b_first_frame);
+title(<span class="string">'First Frame'</span>);
+
+figure;
+imshow(img4b_mid_frame);
+title(<span class="string">'Middle Frame'</span>);
+
+figure;
+imshow(img4b_last_frame);
+title(<span class="string">'Last Frame'</span>);
+
+fprintf(<span class="string">'Please refer to the 4b.mp4 for more details.\n'</span>);
+</pre>
+<pre class="codeoutput">Please refer to the 4b.mp4 for more details.
+</pre>
+<img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="5">c)</h2>
+<pre class="codeinput">video_4c = VideoReader(<span class="string">'4c.mp4'</span>);
+
+numFrames = video_4c.NumFrames;
+
+img4c_first_frame = read(video_4c, 1);
+img4c_mid_frame = read(video_4c, round(numFrames / 2));
+img4c_last_frame = read(video_4c, 1290);
+close <span class="string">all</span>
+figure;
+imshow(img4c_first_frame);
+title(<span class="string">'First Frame'</span>);
+
+figure;
+imshow(img4c_mid_frame);
+title(<span class="string">'Middle Frame'</span>);
+
+figure;
+imshow(img4c_last_frame);
+title(<span class="string">'Last Frame'</span>);
+
+fprintf(<span class="string">'Please refer to the 4c.mp4 for more details.\n'</span>);
+</pre>
+<pre class="codeoutput">Please refer to the 4c.mp4 for more details.
+</pre>
+<img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <h2 id="6">d)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+figure;
+imshow(img4c_last_frame);
+title(<span class="string">'We Find the h(n) -&gt; 1, and the H(z) becomes close to Delta function'</span>);
+</pre>
+<img vspace="5" hspace="5" src="main_08.png" alt=""> <h2 id="7">e)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+
+<span class="comment">% When the pole is outside the unit circle, $ h[n] $ grows and does not decay. This means the system is not stable because $ h[n] $ is not summable ($ \sum |h[n]| \to \infty $).</span>
+
+<span class="comment">% The frequency response $ H(e^{j\omega}) $ is not valid since it assumes the system is stable. Without stability, $ H(e^{j\omega}) $ cannot represent the system's behavior.</span>
+
+img4e = imread(<span class="string">'4e.png'</span>);
+figure;
+imshow(img4e)
+</pre>
+<img vspace="5" hspace="5" src="main_09.png" alt=""> <h2 id="8">f)</h2>
+<pre class="codeinput">
+<span class="comment">% inside the unit circle in the z-plane.</span>
+</pre>
+<h2 id="9">2) Lab Exerices 5</h2>
+<h2 id="10">a)</h2>
+<pre class="codeinput">
+<span class="comment">% a1^2 + 4a2 &lt; 0</span>
+</pre>
+<h2 id="11">b)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img5b = imread(<span class="string">'5b.png'</span>);
+figure;
+imshow(img5b)
+</pre>
+<img vspace="5" hspace="5" src="main_10.png" alt=""> <h2 id="12">c)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img5c1 = imread(<span class="string">'5c1.png'</span>);
+figure;
+imshow(img5c1)
+
+img5c2 = imread(<span class="string">'5c2.png'</span>);
+figure;
+imshow(img5c2)
+
+<span class="comment">% We notice that the peak moves with the phase of the poles</span>
+</pre>
+<img vspace="5" hspace="5" src="main_11.png" alt=""> <img vspace="5" hspace="5" src="main_12.png" alt=""> <h2 id="13">d)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img5d = imread(<span class="string">'5d.png'</span>);
+figure;
+imshow(img5d)
+
+<span class="comment">% FIR filter because it only has zeros</span>
+</pre>
+<img vspace="5" hspace="5" src="main_13.png" alt=""> <h2 id="14">Lab Exerices 6</h2>
+<h2 id="15">a)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img6a = imread(<span class="string">'6a.png'</span>);
+figure;
+imshow(img6a)
+
+img6a2 = imread(<span class="string">'6a2.png'</span>);
+figure;
+imshow(img6a2)
+
+<span class="comment">% use freqz</span>
+<span class="comment">% Design zero filter H(z) with zeros at specified locations</span>
+zeros = exp(1j * pi / 2 * [1, -1]);
+bb = poly(zeros);
+aa = 1; <span class="comment">% Denominator coefficients (no poles)</span>
+
+[HH, ~] = freqz(bb, aa, 1024, <span class="string">'whole'</span>);
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel(<span class="string">'Frequency'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+
+zeros = [0, 0];
+poles = 0.9 * exp(1j * pi / 2 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, <span class="string">'whole'</span>);
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel(<span class="string">'Frequency'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="main_14.png" alt=""> <img vspace="5" hspace="5" src="main_15.png" alt=""> <img vspace="5" hspace="5" src="main_16.png" alt=""> <img vspace="5" hspace="5" src="main_17.png" alt=""> <img vspace="5" hspace="5" src="main_18.png" alt=""> <img vspace="5" hspace="5" src="main_19.png" alt=""> <h2 id="16">b)</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img6b = imread(<span class="string">'6b.png'</span>);
+figure;
+imshow(img6b)
+</pre>
+<img vspace="5" hspace="5" src="main_20.png" alt=""> <h2 id="17">c)</h2>
+<pre class="codeinput">
+<span class="comment">% The notch exists because the zeros on the unit circle at +- pi/2 cancle out the frequency components at these points completely.</span>
+
+<span class="comment">% The gain is the same because the poles and zeros are symmetrically distributed, maintaining equal contributions to the magnitude.</span>
+
+zeros = exp(1j * pi / 2 * [1, -1]);
+poles = 0.9 * exp(1j * pi / 2 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, <span class="string">'whole'</span>);
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+close <span class="string">all</span>
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel(<span class="string">'Frequency'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="main_21.png" alt=""> <img vspace="5" hspace="5" src="main_22.png" alt=""> <h2 id="18">4) Lab Exerices 7</h2>
+<pre class="codeinput">close <span class="string">all</span>
+<span class="comment">% as the document we show the PeZ GUI</span>
+img71 = imread(<span class="string">'71.png'</span>);
+figure;
+imshow(img71)
+
+img72 = imread(<span class="string">'72.png'</span>);
+figure;
+imshow(img72)
+
+zeros = [1,-1];
+poles = 0.75 * exp(1j * pi / 4 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, <span class="string">'whole'</span>);
+
+G = 1/max(abs(HH));
+
+disp([<span class="string">'The value of G, which normalizes the H(z) frequency response to have a maximum magnitude of 1, is: '</span>, num2str(G)]);
+</pre>
+<pre class="codeoutput">The value of G, which normalizes the H(z) frequency response to have a maximum magnitude of 1, is: 0.21876
+</pre>
+<img vspace="5" hspace="5" src="main_23.png" alt=""> <img vspace="5" hspace="5" src="main_24.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Lab Exerices
+
+% For the vedio, we find it is difficult include in matlab HTML, so we
+% choose three key frames.
+
+% We include all PeZ, and code implement in this.
+
+%% 1) Lab Exerices 4
+
+%% a)
+
+close all
+% as the document we show the PeZ GUI
+img4a = imread('4a.png');
+figure;
+imshow(img4a)
+
+%% b)
+% We find that the |H(z)| is more and more flat.
+
+video_4b = VideoReader('4b.mp4');
+
+numFrames = video_4b.NumFrames;
+
+img4b_first_frame = read(video_4b, 1); 
+img4b_mid_frame = read(video_4b, round(numFrames / 2)); 
+img4b_last_frame = read(video_4b, 1100);
+close all
+figure;
+imshow(img4b_first_frame);
+title('First Frame');
+
+figure;
+imshow(img4b_mid_frame);
+title('Middle Frame');
+
+figure;
+imshow(img4b_last_frame);
+title('Last Frame');
+
+fprintf('Please refer to the 4b.mp4 for more details.\n');
+
+
+%% c)
+
+video_4c = VideoReader('4c.mp4');
+
+numFrames = video_4c.NumFrames;
+
+img4c_first_frame = read(video_4c, 1); 
+img4c_mid_frame = read(video_4c, round(numFrames / 2)); 
+img4c_last_frame = read(video_4c, 1290);
+close all
+figure;
+imshow(img4c_first_frame);
+title('First Frame');
+
+figure;
+imshow(img4c_mid_frame);
+title('Middle Frame');
+
+figure;
+imshow(img4c_last_frame);
+title('Last Frame');
+
+fprintf('Please refer to the 4c.mp4 for more details.\n');
+
+%% d)
+
+close all
+figure;
+imshow(img4c_last_frame);
+title('We Find the h(n) -> 1, and the H(z) becomes close to Delta function');
+
+
+%% e)
+
+close all
+% as the document we show the PeZ GUI
+
+% When the pole is outside the unit circle, $ h[n] $ grows and does not decay. This means the system is not stable because $ h[n] $ is not summable ($ \sum |h[n]| \to \infty $). 
+
+% The frequency response $ H(e^{j\omega}) $ is not valid since it assumes the system is stable. Without stability, $ H(e^{j\omega}) $ cannot represent the system's behavior.
+
+img4e = imread('4e.png');
+figure;
+imshow(img4e)
+
+%% f)
+
+% inside the unit circle in the z-plane.
+
+
+%% 2) Lab Exerices 5
+
+
+%% a)
+
+% a1^2 + 4a2 < 0
+
+%% b)
+close all
+% as the document we show the PeZ GUI
+img5b = imread('5b.png');
+figure;
+imshow(img5b)
+
+%% c)
+close all
+% as the document we show the PeZ GUI
+img5c1 = imread('5c1.png');
+figure;
+imshow(img5c1)
+
+img5c2 = imread('5c2.png');
+figure;
+imshow(img5c2)
+
+% We notice that the peak moves with the phase of the poles
+
+
+%% d)
+
+close all
+% as the document we show the PeZ GUI
+img5d = imread('5d.png');
+figure;
+imshow(img5d)
+
+% FIR filter because it only has zeros
+
+
+%% Lab Exerices 6
+
+%% a)
+
+close all
+% as the document we show the PeZ GUI
+img6a = imread('6a.png');
+figure;
+imshow(img6a)
+
+img6a2 = imread('6a2.png');
+figure;
+imshow(img6a2)
+
+% use freqz
+% Design zero filter H(z) with zeros at specified locations
+zeros = exp(1j * pi / 2 * [1, -1]);
+bb = poly(zeros);
+aa = 1; % Denominator coefficients (no poles)
+
+[HH, ~] = freqz(bb, aa, 1024, 'whole');
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel('Frequency');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+zeros = [0, 0];
+poles = 0.9 * exp(1j * pi / 2 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, 'whole');
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel('Frequency');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+
+%% b)
+
+close all
+% as the document we show the PeZ GUI
+img6b = imread('6b.png');
+figure;
+imshow(img6b)
+
+%% c)
+
+
+% The notch exists because the zeros on the unit circle at +- pi/2 cancle out the frequency components at these points completely.
+
+% The gain is the same because the poles and zeros are symmetrically distributed, maintaining equal contributions to the magnitude.
+
+zeros = exp(1j * pi / 2 * [1, -1]);
+poles = 0.9 * exp(1j * pi / 2 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, 'whole');
+ww = linspace(-pi, pi, length(HH));
+HH = fftshift(HH);
+
+close all
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot((ww - pi)/(2*pi), abs(HH));
+xlabel('Frequency');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+%% 4) Lab Exerices 7
+
+
+%% 
+close all
+% as the document we show the PeZ GUI
+img71 = imread('71.png');
+figure;
+imshow(img71)
+
+img72 = imread('72.png');
+figure;
+imshow(img72)
+
+zeros = [1,-1];
+poles = 0.75 * exp(1j * pi / 4 * [1, -1]);
+aa = poly(poles);
+bb = poly(zeros);
+
+[HH, ~] = freqz(bb, aa, 1024, 'whole');
+
+G = 1/max(abs(HH));
+
+disp(['The value of G, which normalizes the H(z) frequency response to have a maximum magnitude of 1, is: ', num2str(G)]);
+
+
+%%
+close all
+##### SOURCE END #####
+-->
+</body>
+</html>

@@ -1,0 +1,1359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>main</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-11-29">
+<meta name="DC.source" content="main.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Mini-Project</a>
+</li>
+<li>
+<a href="#2">1) Data Reading</a>
+</li>
+<li>
+<a href="#3">2) Use zeros</a>
+</li>
+<li>
+<a href="#4">3) Use Zeros and poles</a>
+</li>
+<li>
+<a href="#5">4) self design</a>
+</li>
+<li>
+<a href="#6">5) Low-pass Filter Design</a>
+</li>
+<li>
+<a href="#7">6) Low-pass Filter Design using FIR</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Mini-Project</h2>
+<p>Please note that the x-axis uses Hz instead of ω, with a range from 0 to fs/2, so that it makes more clear to understand</p>
+<pre class="codeinput">
+<span class="comment">% In this code, we only keep order = 6, but we run a wide range of filters</span>
+<span class="comment">% order to show the difference</span>
+
+<span class="comment">% untiled.m is using translate wav to mp3, which allows us include these</span>
+<span class="comment">% audios to the poster</span>
+</pre>
+<h2 id="2">1) Data Reading</h2>
+<pre class="codeinput">[audioData, fs] = audioread(<span class="string">'SunshineSquare.wav'</span>);
+
+
+time = (0:length(audioData)-1) / fs; <span class="comment">% Time axis</span>
+
+<span class="comment">% Calculate frequency information</span>
+n = length(audioData);
+freqAxis = linspace(0, fs/2, floor(n/2) + 1); <span class="comment">% Frequency axis (Hz)</span>
+audioFFT = fft(audioData);
+magnitudeFFT = abs(audioFFT(1:floor(n/2)+1));
+
+<span class="comment">% Plot waveform and frequency spectrum</span>
+close <span class="string">all</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform of SunshineSquare.wav'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum of SunshineSquare.wav'</span>);
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Normalized Frequency Spectrum of SunshineSquare.wav'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="3">2) Use zeros</h2>
+<p>Optimized Zero Filter Design with Normalization</p>
+<pre class="codeinput">
+<span class="comment">% Design zero filter H(z) with zeros at specified locations</span>
+zeros = exp(1j * pi / 4 * [1, -1, 2, -2]);
+bb = poly(zeros);
+aa = 1; <span class="comment">% Denominator coefficients (no poles)</span>
+
+<span class="comment">% Normalize filter coefficients</span>
+[HH, ww] = freqz(bb, aa, 1024, fs);
+
+dcGain = max(abs(HH));
+bb = bb / dcGain;
+
+close <span class="string">all</span>
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Filter audio data</span>
+audioData_zero_filter_result = filter(bb, aa, audioData);
+
+<span class="comment">% Calculate frequency information of filtered signal</span>
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); <span class="comment">% Subplot 1: Waveform</span>
+plot(time, audioData_zero_filter_result);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% show compare</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_zero_filter_result, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Original and Filtered Signals'</span>);
+legend(<span class="string">'Original Signal'</span>, <span class="string">'Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Original Spectrum'</span>, <span class="string">'Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Original Spectrum (Normalized)'</span>, <span class="string">'Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Save filtered audio</span>
+audiowrite(<span class="string">'SunshineSquare_zero_filter_result.wav'</span>, audioData_zero_filter_result, fs);
+</pre>
+<img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <img vspace="5" hspace="5" src="main_05.png" alt=""> <h2 id="4">3) Use Zeros and poles</h2>
+<pre class="codeinput">
+<span class="comment">% Define zeros</span>
+zero1 = exp(1j * pi / 4);
+zero2 = exp(-1j * pi / 4);
+zero3 = exp(1j * pi / 2);
+zero4 = exp(-1j * pi / 2);
+zeros = [zero1,zero2,zero3,zero4];
+
+<span class="comment">% Define poles</span>
+pole1 = 0.9 * exp(1j * pi / 4);
+pole2 = 0.9 * exp(-1j * pi / 4);
+pole3 = 0.9 * exp(1j * pi / 2);
+pole4 = 0.9 * exp(-1j * pi / 2);
+poles = [pole1, pole2,pole3,pole4];
+
+bb = poly(zeros);
+aa = poly(poles);
+
+<span class="comment">% Normalize filter coefficients</span>
+[HH, ww] = freqz(bb, aa, 1024, fs);
+
+dcGain = max(abs(HH));
+bb = bb / dcGain;
+
+
+close <span class="string">all</span>
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Filter audio data</span>
+audioData_zero_and_pole_filter_result = filter(bb, aa, audioData);
+
+<span class="comment">% Calculate frequency information of filtered signal</span>
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_and_pole_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); <span class="comment">% Subplot 1: Waveform</span>
+plot(time, audioData_zero_and_pole_filter_result);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% show compare</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_zero_and_pole_filter_result, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Original and Filtered Signals'</span>);
+legend(<span class="string">'Original Signal'</span>, <span class="string">'Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Original Spectrum'</span>, <span class="string">'Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Original Spectrum (Normalized)'</span>, <span class="string">'Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Save filtered audio</span>
+audiowrite(<span class="string">'SunshineSquare_zero_and_pole_filter_result.wav'</span>, audioData_zero_and_pole_filter_result, fs);
+</pre>
+<pre class="codeoutput">Warning: Data clipped when writing file. 
+</pre>
+<img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <img vspace="5" hspace="5" src="main_09.png" alt=""> <h2 id="5">4) self design</h2>
+<pre class="codeinput">
+<span class="comment">% based on the magnitudeFFT, we can design</span>
+<span class="comment">% The number is based on the peak of the magnitude</span>
+
+<span class="comment">% Define zeros</span>
+zero1 = exp(1j * 0.897598);
+zero2 = exp(-1j * 0.897598);
+zero3 = exp(1j * 1.79498);
+zero4 = exp(-1j * 1.79498);
+zero5 = exp(1j * 2.69279);
+zero6 = exp(-1j * 2.69279);
+zeros = [zero1,zero2,zero3,zero4,zero5,zero6];
+
+<span class="comment">% Define poles</span>
+pole1 = 0.9 * exp(1j * 0.897598);
+pole2 = 0.9 * exp(-1j * 0.897598);
+pole3 = 0.9 * exp(1j * 1.79498);
+pole4 = 0.9 * exp(-1j * 1.79498);
+pole5 = 0.9 * exp(1j * 2.69279);
+pole6 = 0.9 * exp(-1j * 2.69279);
+poles = [pole1, pole2,pole3,pole4,pole5,pole6];
+
+bb = poly(zeros);
+aa = poly(poles);
+
+<span class="comment">% Normalize filter coefficients</span>
+[HH, ww] = freqz(bb, aa, 1024, fs);
+
+dcGain = max(abs(HH));
+bb = bb / dcGain;
+
+
+close <span class="string">all</span>
+figure;
+zplane(bb, aa);
+title(<span class="string">'Pole-Zero Plot of Filter'</span>);
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Filter audio data</span>
+audioData_zero_and_pole_filter_result = filter(bb, aa, audioData);
+
+<span class="comment">% Calculate frequency information of filtered signal</span>
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_and_pole_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); <span class="comment">% Subplot 1: Waveform</span>
+plot(time, audioData_zero_and_pole_filter_result);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3); <span class="comment">% Subplot 2: Frequency spectrum</span>
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Normalized Zero Filter'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% show compare</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_zero_and_pole_filter_result, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Original and Filtered Signals'</span>);
+legend(<span class="string">'Original Signal'</span>, <span class="string">'Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Original Spectrum'</span>, <span class="string">'Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Original Spectrum (Normalized)'</span>, <span class="string">'Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Save filtered audio</span>
+audiowrite(<span class="string">'SunshineSquare_self_design_filter_result.wav'</span>, audioData_zero_and_pole_filter_result, fs);
+</pre>
+<pre class="codeoutput">Warning: Data clipped when writing file. 
+</pre>
+<img vspace="5" hspace="5" src="main_10.png" alt=""> <img vspace="5" hspace="5" src="main_11.png" alt=""> <img vspace="5" hspace="5" src="main_12.png" alt=""> <img vspace="5" hspace="5" src="main_13.png" alt=""> <h2 id="6">5) Low-pass Filter Design</h2>
+<pre class="codeinput">
+<span class="comment">% Filter specifications</span>
+fc = 500;
+order = 6; <span class="comment">% fair compare</span>
+
+[bb_lp, aa_lp] = butter(order, fc/(fs/2), <span class="string">'low'</span>);
+
+<span class="comment">% Frequency response of the filter</span>
+[HH_lp, ww_lp] = freqz(bb_lp, aa_lp, 1024, fs);
+
+<span class="comment">% Normalize the filter coefficients</span>
+dcGain_lp = max(abs(HH_lp));
+bb_lp = bb_lp / dcGain_lp;
+
+<span class="comment">% Pole-zero plot</span>
+close <span class="string">all</span>
+figure;
+zplane(bb_lp, aa_lp);
+title(<span class="string">'Pole-Zero Plot of Low-pass Filter'</span>);
+
+<span class="comment">% Frequency response plot</span>
+figure;
+plot(ww_lp, abs(HH_lp) / dcGain_lp);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of Low-pass Filter'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Filter the audio data</span>
+audioData_lowpass = filter(bb_lp, aa_lp, audioData);
+
+<span class="comment">% FFT of the filtered signal</span>
+filteredFFT_lp = fft(audioData_lowpass);
+magnitudeFilteredFFT_lp = abs(filteredFFT_lp(1:floor(n/2)+1));
+
+<span class="comment">% Plotting</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData_lowpass);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform after Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT_lp);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Normalized Frequency Spectrum after Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Compare original and low-pass filtered signals</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_lowpass, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Original and Low-pass Filtered Signals'</span>);
+legend(<span class="string">'Original Signal'</span>, <span class="string">'Low-pass Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Original Spectrum'</span>, <span class="string">'Low-pass Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Original Spectrum (Normalized)'</span>, <span class="string">'Low-pass Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Compare Self-design and low-pass filtered signals</span>
+figure;
+subplot(3,1,1);
+plot(time, audioData_zero_and_pole_filter_result, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_lowpass, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Self-design and low-pass filtered signals'</span>);
+legend(<span class="string">'Self design filtered Signal'</span>, <span class="string">'Low-pass Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Self design filtered Spectrum'</span>, <span class="string">'Low-pass Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Self design filtered Spectrum (Normalized)'</span>, <span class="string">'Low-pass Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+
+<span class="comment">% Save the filtered audio</span>
+audiowrite(<span class="string">'SunshineSquare_lowpass_order6_filter_result.wav'</span>, audioData_lowpass, fs);
+</pre>
+<img vspace="5" hspace="5" src="main_14.png" alt=""> <img vspace="5" hspace="5" src="main_15.png" alt=""> <img vspace="5" hspace="5" src="main_16.png" alt=""> <img vspace="5" hspace="5" src="main_17.png" alt=""> <img vspace="5" hspace="5" src="main_18.png" alt=""> <h2 id="7">6) Low-pass Filter Design using FIR</h2>
+<pre class="codeinput">fc = 500;
+order = 6;
+
+<span class="comment">% Design FIR low-pass filter using fir1</span>
+bb_lp = fir1(order, fc / (fs / 2), <span class="string">'low'</span>, hann(order + 1));
+
+
+[HH_lp, ww_lp] = freqz(bb_lp, 1, 1024, fs);
+
+close <span class="string">all</span>
+figure;
+zplane(bb_lp, 1);
+title(<span class="string">'Pole-Zero Plot of FIR Low-pass Filter'</span>);
+
+figure;
+plot(ww_lp, abs(HH_lp));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Response of FIR Low-pass Filter'</span>);
+grid <span class="string">on</span>;
+
+audioData_lowpass = filter(bb_lp, 1, audioData);
+
+filteredFFT_lp = fft(audioData_lowpass);
+magnitudeFilteredFFT_lp = abs(filteredFFT_lp(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1);
+plot(time, audioData_lowpass);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Waveform after FIR Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT_lp);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Frequency Spectrum after FIR Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp));
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Normalized Frequency Spectrum after FIR Low-pass Filtering'</span>);
+grid <span class="string">on</span>;
+
+figure;
+subplot(3,1,1);
+plot(time, audioData, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_lowpass, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Original and FIR Low-pass Filtered Signals'</span>);
+legend(<span class="string">'Original Signal'</span>, <span class="string">'FIR Low-pass Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Original Spectrum'</span>, <span class="string">'FIR Low-pass Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Original Spectrum (Normalized)'</span>, <span class="string">'FIR Low-pass Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+figure;
+subplot(3,1,1);
+plot(time, audioData_zero_and_pole_filter_result, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(time, audioData_lowpass, <span class="string">'g'</span>);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+title(<span class="string">'Comparison of Self-design and FIR Low-pass Filtered Signals'</span>);
+legend(<span class="string">'Self Design Filtered Signal'</span>, <span class="string">'FIR Low-pass Filtered Signal'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT, <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp, <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Magnitude)'</span>);
+legend(<span class="string">'Self Design Filtered Spectrum'</span>, <span class="string">'FIR Low-pass Filtered Spectrum'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), <span class="string">'b'</span>);
+hold <span class="string">on</span>;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), <span class="string">'g'</span>);
+xlabel(<span class="string">'Frequency (Hz)'</span>);
+ylabel(<span class="string">'Magnitude'</span>);
+title(<span class="string">'Comparison of Frequency Spectrums (Normalized)'</span>);
+legend(<span class="string">'Self Design Filtered Spectrum (Normalized)'</span>, <span class="string">'FIR Low-pass Filtered Spectrum (Normalized)'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'eastoutside'</span>);
+grid <span class="string">on</span>;
+
+<span class="comment">% Save the filtered audio</span>
+audiowrite(<span class="string">'SunshineSquare_fir_lowpass_order6_filter_result.wav'</span>, audioData_lowpass, fs);
+</pre>
+<img vspace="5" hspace="5" src="main_19.png" alt=""> <img vspace="5" hspace="5" src="main_20.png" alt=""> <img vspace="5" hspace="5" src="main_21.png" alt=""> <img vspace="5" hspace="5" src="main_22.png" alt=""> <img vspace="5" hspace="5" src="main_23.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Mini-Project
+% 
+% Please note that the x-axis uses Hz instead of ω, with a range from 0 to
+% fs/2, so that it makes more clear to understand
+
+% In this code, we only keep order = 6, but we run a wide range of filters
+% order to show the difference
+
+% untiled.m is using translate wav to mp3, which allows us include these
+% audios to the poster
+
+%% 1) Data Reading
+
+[audioData, fs] = audioread('SunshineSquare.wav');
+
+
+time = (0:length(audioData)-1) / fs; % Time axis
+
+% Calculate frequency information
+n = length(audioData);
+freqAxis = linspace(0, fs/2, floor(n/2) + 1); % Frequency axis (Hz)
+audioFFT = fft(audioData);
+magnitudeFFT = abs(audioFFT(1:floor(n/2)+1)); 
+
+% Plot waveform and frequency spectrum
+close all
+figure;
+subplot(3,1,1);
+plot(time, audioData);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform of SunshineSquare.wav');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum of SunshineSquare.wav');
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Normalized Frequency Spectrum of SunshineSquare.wav');
+grid on;
+%% 2) Use zeros
+% Optimized Zero Filter Design with Normalization
+
+% Design zero filter H(z) with zeros at specified locations
+zeros = exp(1j * pi / 4 * [1, -1, 2, -2]);
+bb = poly(zeros);
+aa = 1; % Denominator coefficients (no poles)
+
+% Normalize filter coefficients
+[HH, ww] = freqz(bb, aa, 1024, fs); 
+
+dcGain = max(abs(HH));
+bb = bb / dcGain; 
+
+close all
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+% Filter audio data
+audioData_zero_filter_result = filter(bb, aa, audioData);
+
+% Calculate frequency information of filtered signal
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); % Subplot 1: Waveform
+plot(time, audioData_zero_filter_result);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,2); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,3); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+% show compare
+figure;
+subplot(3,1,1);
+plot(time, audioData, 'b');
+hold on;
+plot(time, audioData_zero_filter_result, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Original and Filtered Signals');
+legend('Original Signal', 'Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, 'b'); 
+hold on;
+plot(freqAxis, magnitudeFilteredFFT, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Original Spectrum', 'Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Original Spectrum (Normalized)', 'Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+% Save filtered audio
+audiowrite('SunshineSquare_zero_filter_result.wav', audioData_zero_filter_result, fs);
+
+%% 3) Use Zeros and poles
+
+% Define zeros
+zero1 = exp(1j * pi / 4);
+zero2 = exp(-1j * pi / 4);
+zero3 = exp(1j * pi / 2);
+zero4 = exp(-1j * pi / 2);
+zeros = [zero1,zero2,zero3,zero4];
+
+% Define poles
+pole1 = 0.9 * exp(1j * pi / 4);
+pole2 = 0.9 * exp(-1j * pi / 4);
+pole3 = 0.9 * exp(1j * pi / 2);
+pole4 = 0.9 * exp(-1j * pi / 2);
+poles = [pole1, pole2,pole3,pole4];
+
+bb = poly(zeros);
+aa = poly(poles);
+
+% Normalize filter coefficients
+[HH, ww] = freqz(bb, aa, 1024, fs); 
+
+dcGain = max(abs(HH));
+bb = bb / dcGain; 
+
+
+close all
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+% Filter audio data
+audioData_zero_and_pole_filter_result = filter(bb, aa, audioData);
+
+% Calculate frequency information of filtered signal
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_and_pole_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); % Subplot 1: Waveform
+plot(time, audioData_zero_and_pole_filter_result);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,2); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,3); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+% show compare
+figure;
+subplot(3,1,1);
+plot(time, audioData, 'b');
+hold on;
+plot(time, audioData_zero_and_pole_filter_result, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Original and Filtered Signals');
+legend('Original Signal', 'Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, 'b'); 
+hold on;
+plot(freqAxis, magnitudeFilteredFFT, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Original Spectrum', 'Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Original Spectrum (Normalized)', 'Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+% Save filtered audio
+audiowrite('SunshineSquare_zero_and_pole_filter_result.wav', audioData_zero_and_pole_filter_result, fs);
+
+%% 4) self design
+
+% based on the magnitudeFFT, we can design
+% The number is based on the peak of the magnitude
+
+% Define zeros
+zero1 = exp(1j * 0.897598);
+zero2 = exp(-1j * 0.897598);
+zero3 = exp(1j * 1.79498);
+zero4 = exp(-1j * 1.79498);
+zero5 = exp(1j * 2.69279);
+zero6 = exp(-1j * 2.69279);
+zeros = [zero1,zero2,zero3,zero4,zero5,zero6];
+
+% Define poles
+pole1 = 0.9 * exp(1j * 0.897598);
+pole2 = 0.9 * exp(-1j * 0.897598);
+pole3 = 0.9 * exp(1j * 1.79498);
+pole4 = 0.9 * exp(-1j * 1.79498);
+pole5 = 0.9 * exp(1j * 2.69279);
+pole6 = 0.9 * exp(-1j * 2.69279);
+poles = [pole1, pole2,pole3,pole4,pole5,pole6];
+
+bb = poly(zeros);
+aa = poly(poles);
+
+% Normalize filter coefficients
+[HH, ww] = freqz(bb, aa, 1024, fs); 
+
+dcGain = max(abs(HH));
+bb = bb / dcGain; 
+
+
+close all
+figure;
+zplane(bb, aa);
+title('Pole-Zero Plot of Filter');
+
+figure;
+plot(ww, abs(HH)/dcGain);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Response of Normalized H(z)');
+grid on;
+
+% Filter audio data
+audioData_zero_and_pole_filter_result = filter(bb, aa, audioData);
+
+% Calculate frequency information of filtered signal
+freqAxis = linspace(0, fs/2, floor(n/2) + 1);
+filteredFFT = fft(audioData_zero_and_pole_filter_result);
+magnitudeFilteredFFT = abs(filteredFFT(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1); % Subplot 1: Waveform
+plot(time, audioData_zero_and_pole_filter_result);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,2); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+subplot(3,1,3); % Subplot 2: Frequency spectrum
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Normalized Zero Filter');
+grid on;
+
+% show compare
+figure;
+subplot(3,1,1);
+plot(time, audioData, 'b');
+hold on;
+plot(time, audioData_zero_and_pole_filter_result, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Original and Filtered Signals');
+legend('Original Signal', 'Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, 'b'); 
+hold on;
+plot(freqAxis, magnitudeFilteredFFT, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Original Spectrum', 'Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Original Spectrum (Normalized)', 'Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+% Save filtered audio
+audiowrite('SunshineSquare_self_design_filter_result.wav', audioData_zero_and_pole_filter_result, fs);
+
+%% 5) Low-pass Filter Design
+
+% Filter specifications
+fc = 500;
+order = 6; % fair compare
+
+[bb_lp, aa_lp] = butter(order, fc/(fs/2), 'low');
+
+% Frequency response of the filter
+[HH_lp, ww_lp] = freqz(bb_lp, aa_lp, 1024, fs);
+
+% Normalize the filter coefficients
+dcGain_lp = max(abs(HH_lp));
+bb_lp = bb_lp / dcGain_lp;
+
+% Pole-zero plot
+close all
+figure;
+zplane(bb_lp, aa_lp);
+title('Pole-Zero Plot of Low-pass Filter');
+
+% Frequency response plot
+figure;
+plot(ww_lp, abs(HH_lp) / dcGain_lp);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Response of Low-pass Filter');
+grid on;
+
+% Filter the audio data
+audioData_lowpass = filter(bb_lp, aa_lp, audioData);
+
+% FFT of the filtered signal
+filteredFFT_lp = fft(audioData_lowpass);
+magnitudeFilteredFFT_lp = abs(filteredFFT_lp(1:floor(n/2)+1));
+
+% Plotting
+figure;
+subplot(3,1,1);
+plot(time, audioData_lowpass);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform after Low-pass Filtering');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT_lp);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after Low-pass Filtering');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Normalized Frequency Spectrum after Low-pass Filtering');
+grid on;
+
+% Compare original and low-pass filtered signals
+figure;
+subplot(3,1,1);
+plot(time, audioData, 'b');
+hold on;
+plot(time, audioData_lowpass, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Original and Low-pass Filtered Signals');
+legend('Original Signal', 'Low-pass Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Original Spectrum', 'Low-pass Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Original Spectrum (Normalized)', 'Low-pass Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+% Compare Self-design and low-pass filtered signals
+figure;
+subplot(3,1,1);
+plot(time, audioData_zero_and_pole_filter_result, 'b');
+hold on;
+plot(time, audioData_lowpass, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Self-design and low-pass filtered signals');
+legend('Self design filtered Signal', 'Low-pass Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT, 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Self design filtered Spectrum', 'Low-pass Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Self design filtered Spectrum (Normalized)', 'Low-pass Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+
+% Save the filtered audio
+audiowrite('SunshineSquare_lowpass_order6_filter_result.wav', audioData_lowpass, fs);
+
+
+
+
+%% 6) Low-pass Filter Design using FIR
+
+
+fc = 500;
+order = 6; 
+
+% Design FIR low-pass filter using fir1
+bb_lp = fir1(order, fc / (fs / 2), 'low', hann(order + 1));
+
+
+[HH_lp, ww_lp] = freqz(bb_lp, 1, 1024, fs);
+
+close all
+figure;
+zplane(bb_lp, 1);
+title('Pole-Zero Plot of FIR Low-pass Filter');
+
+figure;
+plot(ww_lp, abs(HH_lp));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Response of FIR Low-pass Filter');
+grid on;
+
+audioData_lowpass = filter(bb_lp, 1, audioData);
+
+filteredFFT_lp = fft(audioData_lowpass);
+magnitudeFilteredFFT_lp = abs(filteredFFT_lp(1:floor(n/2)+1));
+
+figure;
+subplot(3,1,1);
+plot(time, audioData_lowpass);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Waveform after FIR Low-pass Filtering');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT_lp);
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Frequency Spectrum after FIR Low-pass Filtering');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp));
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Normalized Frequency Spectrum after FIR Low-pass Filtering');
+grid on;
+
+figure;
+subplot(3,1,1);
+plot(time, audioData, 'b');
+hold on;
+plot(time, audioData_lowpass, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Original and FIR Low-pass Filtered Signals');
+legend('Original Signal', 'FIR Low-pass Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFFT, 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Original Spectrum', 'FIR Low-pass Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFFT / max(magnitudeFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Original Spectrum (Normalized)', 'FIR Low-pass Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+figure;
+subplot(3,1,1);
+plot(time, audioData_zero_and_pole_filter_result, 'b');
+hold on;
+plot(time, audioData_lowpass, 'g');
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Comparison of Self-design and FIR Low-pass Filtered Signals');
+legend('Self Design Filtered Signal', 'FIR Low-pass Filtered Signal');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,2);
+plot(freqAxis, magnitudeFilteredFFT, 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp, 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Magnitude)');
+legend('Self Design Filtered Spectrum', 'FIR Low-pass Filtered Spectrum');
+legend('Location', 'eastoutside');
+grid on;
+
+subplot(3,1,3);
+plot(freqAxis, magnitudeFilteredFFT / max(magnitudeFilteredFFT), 'b');
+hold on;
+plot(freqAxis, magnitudeFilteredFFT_lp / max(magnitudeFilteredFFT_lp), 'g');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+title('Comparison of Frequency Spectrums (Normalized)');
+legend('Self Design Filtered Spectrum (Normalized)', 'FIR Low-pass Filtered Spectrum (Normalized)');
+legend('Location', 'eastoutside');
+grid on;
+
+% Save the filtered audio
+audiowrite('SunshineSquare_fir_lowpass_order6_filter_result.wav', audioData_lowpass, fs);
+
+
+%%
+close all
+
+##### SOURCE END #####
+-->
+</body>
+</html>
