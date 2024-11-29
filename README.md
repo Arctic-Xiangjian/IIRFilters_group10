@@ -36,3 +36,15 @@ This script is a utility for converting `.wav` files to `.mp3` format to ensure 
    - For Lab Exercises, this generates results and includes annotated answers.
    - For the Mini-Project, this generates filtered audio outputs.
 4. Use `untitled.m` to convert `.wav` files to `.mp3` format if needed.
+
+---
+
+## Contributions
+
+This project is the result of the collective effort of all group members. The main contributions are as follows:
+
+- **Connor**: Played a leading role in completing the Lab Exercises and organizing the group at the beginning of the semester.  
+- **Sumaiya**: Contributed by writing portions of the Lab Exercise and Mini-Project code.  
+- **Xiangjian**: Designed the poster and conducted comparative experiments on different filters.  
+
+**Disclaimer**: The contributions listed above reflect the primary areas of focus for each member. However, the majority of the work was collaboratively discussed, planned, and executed during regular team meetings.
