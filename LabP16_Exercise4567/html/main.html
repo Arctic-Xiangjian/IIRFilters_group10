@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>main</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-11-29">
+<meta name="DC.date" content="2024-12-02">
 <meta name="DC.source" content="main.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -284,7 +284,7 @@ zplane(bb, aa);
 title(<span class="string">'Pole-Zero Plot of Filter'</span>);
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel(<span class="string">'Frequency'</span>);
 ylabel(<span class="string">'Magnitude'</span>);
 title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
@@ -304,7 +304,7 @@ zplane(bb, aa);
 title(<span class="string">'Pole-Zero Plot of Filter'</span>);
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel(<span class="string">'Frequency'</span>);
 ylabel(<span class="string">'Magnitude'</span>);
 title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
@@ -338,7 +338,7 @@ zplane(bb, aa);
 title(<span class="string">'Pole-Zero Plot of Filter'</span>);
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel(<span class="string">'Frequency'</span>);
 ylabel(<span class="string">'Magnitude'</span>);
 title(<span class="string">'Frequency Response of Normalized H(z)'</span>);
@@ -539,7 +539,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');
@@ -559,7 +559,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');
@@ -596,7 +596,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');

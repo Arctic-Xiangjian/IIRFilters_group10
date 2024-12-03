@@ -159,7 +159,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');
@@ -179,7 +179,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');
@@ -216,7 +216,7 @@ zplane(bb, aa);
 title('Pole-Zero Plot of Filter');
 
 figure;
-plot((ww - pi)/(2*pi), abs(HH));
+plot((ww)/(2*pi), abs(HH));
 xlabel('Frequency');
 ylabel('Magnitude');
 title('Frequency Response of Normalized H(z)');
